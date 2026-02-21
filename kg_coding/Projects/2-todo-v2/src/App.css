@@ -1,16 +1,8 @@
-.todo-container h1 {
-  font-size:45px;
-  font-weight:700;
-  margin: 10px;
-  margin-bottom: 25px;
 
-}
 input{
   width: 100%;
 }
-.items-container{
-  text-align: left;
-}
+
 
 .rb-row{
   margin: 10px 5px;

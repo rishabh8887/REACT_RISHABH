@@ -1,8 +1,10 @@
 import styles from "./Item.module.css";
-const Item = ({ foodItem, handleBuyButtonClicked }) => {
+const Item = ({ foodItem, bought, handleBuyButtonClicked }) => {
   return (
     <>
-      <li className={`list-group-item  ${styles["rb-item"]}`}>
+      <li
+        className={`list-group-item ${bought && "active"} ${styles["rb-item"]}`}
+      >
         <span className={`${styles["rb-span"]}`}>{foodItem}</span>
         <button
           className={`${styles.button} btn btn-info `}

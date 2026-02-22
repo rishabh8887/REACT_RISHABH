@@ -3,36 +3,31 @@ import FoodItems from "./components/FoodItems";
 import ErrorMessage from "./components/ErrorMessage";
 import Container from "./components/Container";
 import FoodInput from "./components/FoodInput";
+import { useState } from "react";
 function App() {
-  //let foodItems = [];
-  let foodItems = ["sabji", "green veges", "Roti", "Salad", "Milk", "ghee"];
+  let [foodItems, setFoodItems] = useState([
+    "sabji",
+    "green veges",
+    "Roti",
+    "Salad",
+  ]);
 
-  // by if else
-  // if (foodItems.length === 0) {
-  //   return <h3>I AM STILL HUNGRY</h3>;
-  // }
-
-  // by ternary operator
-  // let emptyMessage = foodItems.length === 0 ? <h3>i AM STILL hungry</h3> : null;
-  let textToShow = "Food Item Entered by user";
-  const handelOnChange = (event) => {
-    console.log(event.target.value);
-    textToShow=event.target.value;
+  const onKeyDown = (event) => {
+    if (event.key == "Enter") {
+      let newFoodItem = event.target.value;
+      let newItems = [...foodItems, newFoodItem];
+      setFoodItems(newItems);
+    }
   };
   return (
     <>
       <Container>
         <h1>Healthy Foods</h1>
-        {/* by logical and  */}
-        {/* {foodItems.length === 0 && <h3>i AM STILL hungry</h3>} */}
+
+        <FoodInput handleKeyDown={onKeyDown} />
         <ErrorMessage items={foodItems} />
-        <FoodInput handelOnChange={handelOnChange} />
-        <p>{textToShow}</p>
         <FoodItems items={foodItems} />
       </Container>
-      {/* <Container>
-      <p>Above food list is the healhty food list </p>
-    </Container> */}
     </>
   );
 }

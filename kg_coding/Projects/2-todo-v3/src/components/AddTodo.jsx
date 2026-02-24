@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 function AddTodo({ onNewItem }) {
@@ -9,7 +9,8 @@ function AddTodo({ onNewItem }) {
     event.preventDefault();
     const todoName = todoNameElement.current.value;
     const todoDate = dueDateElement.current.value;
-    console.log(`name${todoName} date${todoDate}`);
+    todoNameElement.current.value = "";
+    dueDateElement.current.value = "";
 
     onNewItem(todoName, todoDate);
   };

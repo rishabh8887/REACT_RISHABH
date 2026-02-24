@@ -1,48 +1,46 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 function AddTodo({ onNewItem }) {
-  const [todoName, setTodoName] = useState("");
-  const [todoDate, setTodoDate] = useState("");
+  const todoNameElement = useRef();
+  const dueDateElement = useRef();
 
-  const handleNameChange = (event) => {
-    setTodoName(event.target.value);
-  };
-  const handleDateChange = (event) => {
-    setTodoDate(event.target.value);
-  };
+  const handleAddButtonClicked = (event) => {
+    event.preventDefault();
+    const todoName = todoNameElement.current.value;
+    const todoDate = dueDateElement.current.value;
+    console.log(`name${todoName} date${todoDate}`);
 
-  const handleAddButtonClicked = () => {
     onNewItem(todoName, todoDate);
-    setTodoName("");
-    setTodoDate("");
   };
 
   return (
     <>
       <div className="container text-center ">
-        <div className="row rb-row">
+        <form
+          className="row rb-row"
+          action=""
+          onSubmit={handleAddButtonClicked}
+        >
           <div className="col-6">
             <input
               type="text"
+              ref={todoNameElement}
               placeholder="Enter Todo here"
-              value={todoName}
-              onChange={handleNameChange}
             />
           </div>
           <div className="col-4">
-            <input type="date" value={todoDate} onChange={handleDateChange} />
+            <input type="date" ref={dueDateElement} />
           </div>
           <div className="col-2">
             <button
-              type="button"
+              onSubmit={handleAddButtonClicked}
               className="btn btn-success rb-button"
-              onClick={handleAddButtonClicked}
             >
               <MdFormatListBulletedAdd />
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

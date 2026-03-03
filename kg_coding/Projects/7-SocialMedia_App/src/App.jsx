@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CreatePost from "./components/Createost";
+import CreatePost from "./components/CreatePost";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import PostList from "./components/PostList";

@@ -10,6 +10,8 @@ const postListReducer = (currPostList, action) => {
     newPostList = currPostList.filter(
       (post) => post.id !== action.payload.postId,
     );
+  }else if(action.type === 'Add_POST'){
+    newPostList = [action.payload,...currPostList]
   }
 
   return newPostList;

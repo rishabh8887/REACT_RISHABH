@@ -1,13 +1,34 @@
+import { useContext, useRef } from "react";
+
+import { PostList } from "../store/post-list-store";
 const CreatePost = () => {
+  const { addPost } = useContext(PostList);
+  const userIdElement = useRef();
+  const postTitleElement = useRef();
+  const postBodyElement = useRef();
+  const reactionsElement = useRef();
+  const tagsElement = useRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userId = userIdElement.current.value;
+    const postTitle = postTitleElement.current.value;
+    const postBody = postBodyElement.current.value;
+    const reactions = reactionsElement.current.value;
+    const tags = tagsElement.current.value.split(/(\s+)/);
+    addPost(userId, postTitle, postBody, reactions, tags);
+  };
+
   return (
     <>
-      <form className="create-post">
+      <form className="create-post" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="userId" className="form-label">
             Enter your UserID
           </label>
           <input
             type="text"
+            ref={userIdElement}
             className="form-control"
             id="userId"
             placeholder=" Your UserID"
@@ -19,6 +40,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={postTitleElement}
             className="form-control"
             id="title"
             placeholder="How are you feeling today ?"
@@ -30,6 +52,7 @@ const CreatePost = () => {
           </label>
           <textarea
             type="text"
+            ref={postBodyElement}
             rows="4"
             className="form-control"
             id="body"
@@ -42,6 +65,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={reactionsElement}
             className="form-control"
             id="reactions"
             placeholder="How many people reacted to your post "
@@ -53,6 +77,7 @@ const CreatePost = () => {
           </label>
           <input
             type="text"
+            ref={tagsElement}
             className="form-control"
             id="tags"
             placeholder="pls entre your tags using space"

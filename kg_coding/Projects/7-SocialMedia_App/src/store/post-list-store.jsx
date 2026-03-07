@@ -20,7 +20,20 @@ const PostListProvider = ({ children }) => {
     DEFAULT_POST_LIST,
   );
 
-  const addPost = () => {};
+  const addPost = (userId, postTitle, postBody, reactions, tags) => {
+    dispatchPostList({
+      type: "Add_POST",
+      payload: {
+          id: Date.now(),
+        title: postTitle,
+        body: postBody,
+        reaction: reactions,
+        userId: userId,
+        tags: tags,
+      },
+    });
+  };
+
   const deletePost = (postId) => {
     dispatchPostList({
       type: "DELETE_POST",

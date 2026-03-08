@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 export const PostList = createContext({
   postList: [],
   addPost: () => {},
+  addInitialPosts: () => {},
   deletePost: () => {},
 });
 const postListReducer = (currPostList, action) => {
@@ -10,28 +11,36 @@ const postListReducer = (currPostList, action) => {
     newPostList = currPostList.filter(
       (post) => post.id !== action.payload.postId,
     );
-  }else if(action.type === 'Add_POST'){
-    newPostList = [action.payload,...currPostList]
+  } else if (action.type === "Add_POST") {
+    newPostList = [action.payload, ...currPostList];
+  } else if (action.type === "Add_INITIAL_POSTS") {
+    newPostList = action.payload.posts;
   }
 
   return newPostList;
 };
 const PostListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(
-    postListReducer,
-    DEFAULT_POST_LIST,
-  );
+  const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
   const addPost = (userId, postTitle, postBody, reactions, tags) => {
     dispatchPostList({
       type: "Add_POST",
       payload: {
-          id: Date.now(),
+        id: Date.now(),
         title: postTitle,
         body: postBody,
         reaction: reactions,
         userId: userId,
         tags: tags,
+      },
+    });
+  };
+
+  const addInitialPosts = (posts) => {
+    dispatchPostList({
+      type: "Add_INITIAL_POSTS",
+      payload: {
+        posts,
       },
     });
   };
@@ -46,29 +55,12 @@ const PostListProvider = ({ children }) => {
   };
 
   return (
-    <PostList.Provider value={{ postList, addPost, deletePost }}>
+    <PostList.Provider
+      value={{ postList, addInitialPosts, addPost, deletePost }}
+    >
       {children}
     </PostList.Provider>
   );
 };
-
-const DEFAULT_POST_LIST = [
-  {
-    id: "1",
-    title: "Going to Mumbai",
-    body: "Hi friends i am going to mumbai for my vacations hope to enjoy a lot Peace out",
-    reaction: 2,
-    userId: "user-9",
-    tags: ["vacation", "Mumbai", "Enjoying"],
-  },
-  {
-    id: "2",
-    title: "Pass ho gye bhai",
-    body: "4 saal ki masti ke baad bhi ho gye h pass",
-    reaction: 15,
-    userId: "user-9",
-    tags: ["Graduating", "Unbelieveable"],
-  },
-];
 
 export default PostListProvider;

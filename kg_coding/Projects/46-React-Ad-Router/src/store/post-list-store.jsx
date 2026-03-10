@@ -5,12 +5,16 @@ import {
   createContext,
   useReducer,
 } from "react";
+
+
 export const PostList = createContext({
   postList: [],
   fetching: false,
   addPost: () => {},
   deletePost: () => {},
 });
+
+
 const postListReducer = (currPostList, action) => {
   let newPostList = currPostList;
   if (action.type === "DELETE_POST") {
@@ -22,9 +26,11 @@ const postListReducer = (currPostList, action) => {
   } else if (action.type === "Add_INITIAL_POSTS") {
     newPostList = action.payload.posts;
   }
-
   return newPostList;
 };
+
+
+
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
   const [fetching, setFetching] = useState(false);
@@ -56,6 +62,8 @@ const PostListProvider = ({ children }) => {
     },
     [dispatchPostList],
   );
+
+  
   useEffect(() => {
     setFetching(true);
     const controller = new AbortController();

@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { useCallback } from "react";
-import { createContext, useReducer } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  createContext,
+  useReducer,
+} from "react";
 export const PostList = createContext({
   postList: [],
   fetching: false,
@@ -63,6 +66,13 @@ const PostListProvider = ({ children }) => {
       .then((data) => {
         addInitialPosts(data.posts);
         setFetching(false);
+      })
+      .catch((error) => {
+        if (error.name === "AbortError") {
+          console.log("Fetch aborted");
+        } else {
+          console.error(error);
+        }
       });
     return () => {
       controller.abort();

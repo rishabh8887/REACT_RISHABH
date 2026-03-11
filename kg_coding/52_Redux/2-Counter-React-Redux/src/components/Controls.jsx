@@ -35,7 +35,6 @@ const Controls = () => {
     dispatch({
       type: "HIDE",
     });
-    inputElement.current.value = "";
   };
 
   return (

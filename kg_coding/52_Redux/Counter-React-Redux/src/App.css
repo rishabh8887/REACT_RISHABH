@@ -1,0 +1,10 @@
+.control-row{
+ margin-top: 10px; 
+}
+.number-input{
+  max-width: 110px;
+}
+.control-row-hide{
+   margin-top: 10px; 
+   min-width: 210px;
+}

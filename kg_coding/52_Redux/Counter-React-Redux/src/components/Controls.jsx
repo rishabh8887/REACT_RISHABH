@@ -1,13 +1,41 @@
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 
 const Controls = () => {
   const dispatch = useDispatch();
+  const inputElement = useRef();
 
   const handleIncrement = () => {
     dispatch({ type: "INCREMENT" });
   };
   const handleDecrement = () => {
     dispatch({ type: "DECREMENT" });
+  };
+  const handleAdd = () => {
+    dispatch({
+      type: "ADD",
+      payload: {
+        num: inputElement.current.value,
+      },
+    });
+    inputElement.current.value = "";
+  };
+
+  const handleSubtract = () => {
+    dispatch({
+      type: "SUBTRACT",
+      payload: {
+        num: inputElement.current.value,
+      },
+    });
+    inputElement.current.value = "";
+  };
+
+  const handleHide = () => {
+    dispatch({
+      type: "HIDE",
+    });
+    inputElement.current.value = "";
   };
 
   return (
@@ -22,10 +50,39 @@ const Controls = () => {
         </button>
         <button
           type="button"
-          className="btn btn-outline-secondary "
+          className="btn btn-secondary "
           onClick={handleDecrement}
         >
           DECREMENT -1
+        </button>
+      </div>
+      <div className="d-grid gap-2 d-sm-flex justify-content-sm-center  control-row">
+        <input
+          type="text"
+          className="number-input"
+          placeholder="Enter number"
+          ref={inputElement}
+        />
+
+        <button type="button" className="btn btn-info " onClick={handleAdd}>
+          ADD
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-danger "
+          onClick={handleSubtract}
+        >
+          SUBTRACT
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          className="btn btn-warning control-row-hide"
+          onClick={handleHide}
+        >
+          PRIVACY TOGGLE
         </button>
       </div>
     </>
